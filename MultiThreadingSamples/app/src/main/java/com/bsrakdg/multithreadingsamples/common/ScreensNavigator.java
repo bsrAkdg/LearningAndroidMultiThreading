@@ -1,5 +1,6 @@
 package com.bsrakdg.multithreadingsamples.common;
 
+import com.bsrakdg.multithreadingsamples.exercises.exercise1.Exercise1Fragment;
 import com.bsrakdg.multithreadingsamples.home.HomeFragment;
 import com.techyourchance.fragmenthelper.FragmentHelper;
 
@@ -53,7 +54,7 @@ public class ScreensNavigator {
     }
 
     public void toExercise1Screen() {
-       // mFragmentHelper.replaceFragment(Exercise1Fragment.newInstance());
+        mFragmentHelper.replaceFragment(Exercise1Fragment.newInstance());
     }
 
     public void toExercise2Screen() {
