@@ -31,3 +31,36 @@
         thread.start(); // start thread
 
 ** Effective Java Item 18 : Favor Composition over Inheritance
+
+** Important roots in Android application : (do not eligible GC)
+    1. Objects referenced from static fields
+    2. Instances of Application class* (custom subclass of application class)
+    3. Live threads (thread.start())
+
+        - Anonymous Threads : MainActivity instance can't be GC'ed as long as the anonymous Thread instance is live
+            public class MainActivity ... {
+                @Override
+                protected void onCreate(){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // perform some long-running operation
+                        }
+                    }).start();
+                }
+            }
+        - Inner Threads : MainActivity instance can't be GC'ed as long as the anonymous Thread instance is live
+
+            public class MainActivity ... {
+                @Override
+                protected void onCreate(){
+                    new MyThread().start();
+                }
+
+                private class MyThread extends Thread {
+                    @Override
+                    public void run() {
+                        // perform some long-running operation
+                    }
+                }
+            }
