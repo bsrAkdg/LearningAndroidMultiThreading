@@ -40,6 +40,7 @@ public class Exercise1Fragment extends BaseFragment {
     }
 
     private void countIterations() {
+        // click button and turn back : crash!!
         long startTimestamp = System.currentTimeMillis();
         long endTimestamp = startTimestamp + ITERATIONS_COUNTER_DURATION_SEC * 1000;
 
