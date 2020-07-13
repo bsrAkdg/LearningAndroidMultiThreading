@@ -64,3 +64,110 @@
                     }
                 }
             }
+
+** Thread Termination Strategies
+
+    1. Return from run() after successful execution :
+    -------------------------------------------------
+    Normally anonymous threads don't eligible GC,
+    but anonymous Thread can access Activity's fields because it has implicit reference to the enclosing
+    object.
+
+        public class MainActivity ... {
+
+            private EndPoint endPoint;
+            private ItemsDao itemsDao;
+
+            @Override
+            protected void onCreate(){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Item> items = endPoint.fetch();
+                        itemsDao.insertItems(items);
+                    }
+                }).start();
+            }
+        }
+
+    2. Return from run() in response to internal error :
+    ----------------------------------------------------
+    When you return in an error there is no problem for memory leak.
+
+         public class MainActivity ... {
+
+            private EndPoint endPoint;
+            private ItemsDao itemsDao;
+
+            @Override
+            protected void onCreate(){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Item> items;
+
+                        try {
+                            items = endPoint.fetch();
+                        } catch (IOException e) {
+                            return; // it's important!!
+                        }
+                        itemsDao.insertItems(items);
+                    }
+                }).start();
+            }
+         }
+
+    3. Return from run() in response to externally set flag
+    -------------------------------------------------------
+    If the flag is changed after execution passed the condition that checks it, this will have no effect
+
+         public class MainActivity ... {
+
+            private EndPoint endPoint;
+            private ItemsDao itemsDao;
+            private AtomicBoolean fetchAborted = new AtomicBoolean(false); // it's a flag
+
+            @Override
+            protected void onCreate(){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Item> items = endPoint.fetch();
+                        if (fetchAborted.get()) { // it's important!!
+                            return;
+                        }
+                        itemsDao.insertItems(items);
+                    }
+                }).start();
+            }
+         }
+
+    4. Return from run() in response to interruption
+    ------------------------------------------------
+    To interrupt a thread from outside, we need to have a reference to it.
+    Thread interruption might look like externally set flag, but it's much more nuanced and complex mechanism.
+    Favor externally set flag over thread interruption.
+
+         public class MainActivity ... {
+
+            private EndPoint endPoint;
+            private ItemsDao itemsDao;
+            private Thread thread;
+
+            @Override
+            protected void onCreate(){
+                thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<Item> items = endPoint.fetch();
+                        if (Thread.interrupted()) { // it's important!!
+                            return;
+                        }
+                        itemsDao.insertItems(items);
+                    }
+                });
+                thread.start();
+            }
+         }
+
+**
