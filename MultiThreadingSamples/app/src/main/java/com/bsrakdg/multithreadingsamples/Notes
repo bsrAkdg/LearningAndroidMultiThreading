@@ -1,0 +1,33 @@
+
+** Instantiating New Threads : Two way
+    1. Create a class : (Inheritance)
+        public class MyThread extends Thread {
+            private final int mSeed;
+
+            public MyThread(int seed) {
+                mSeed = seed;
+            }
+
+            @Override
+            public void run() {
+                // perform some calculation
+            }
+        }
+
+        Thread myCustomThread = new MyThread(10);
+        myCustomThread.start(); // start thread
+
+    2. User runnable : (Composition) This is a container for threads
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                int seed = 10;
+                // perform some calculation
+            }
+        }
+
+        Thread thread = new Thread(runnable);
+        thread.start(); // start thread
+
+** Effective Java Item 18 : Favor Composition over Inheritance
