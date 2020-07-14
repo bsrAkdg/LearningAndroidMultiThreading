@@ -1,5 +1,7 @@
 
 ** Instantiating New Threads : Two way
+    ** Instantiated thread != started thread (you should call start())
+
     1. Create a class : (Inheritance)
         public class MyThread extends Thread {
             private final int mSeed;
@@ -169,5 +171,13 @@
                 thread.start();
             }
          }
+
+** UI Thread Characteristics
+    1. Started by Android Framework when application starts
+    2. Terminated only when application's process terminates
+    3. Application's user interface is "drawn" on UI thread
+    4. Lifecycle callbacks (e.g onStart(), onStop()) are executed on UI thread
+    5. User interaction event handlers are executed on UI thread
+    6. Changes of user interface must be performed on UI thread
 
 **
