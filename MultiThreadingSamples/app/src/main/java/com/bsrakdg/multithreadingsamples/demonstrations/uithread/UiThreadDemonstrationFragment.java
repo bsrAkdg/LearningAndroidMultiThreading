@@ -88,10 +88,11 @@ public class UiThreadDemonstrationFragment extends BaseFragment {
 
     @Override
     protected String getScreenTitle() {
-        return "";
+        return "UI Thread Demonstration";
     }
 
     private void logThreadInfo(String eventName) {
+        // Lifecycle callbacks (e.g onStart(), onStop()) are executed on UI thread
         Log.d(TAG, "event\n"
                 + eventName
                 + "; thread name: " + Thread.currentThread().getName()

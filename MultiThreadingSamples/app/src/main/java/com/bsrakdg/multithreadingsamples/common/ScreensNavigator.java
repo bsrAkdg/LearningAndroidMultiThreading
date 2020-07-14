@@ -1,5 +1,6 @@
 package com.bsrakdg.multithreadingsamples.common;
 
+import com.bsrakdg.multithreadingsamples.demonstrations.uithread.UiThreadDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.exercises.exercise1.Exercise1Fragment;
 import com.bsrakdg.multithreadingsamples.exercises.exercise2.Exercise2Fragment;
 import com.bsrakdg.multithreadingsamples.home.HomeFragment;
@@ -108,6 +109,6 @@ public class ScreensNavigator {
     }
 
     public void toUiThreadDemonstration() {
-        //mFragmentHelper.replaceFragment(UiThreadDemonstrationFragment.newInstance());
+        mFragmentHelper.replaceFragment(UiThreadDemonstrationFragment.newInstance());
     }
 }
