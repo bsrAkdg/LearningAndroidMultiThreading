@@ -180,4 +180,25 @@
     5. User interaction event handlers are executed on UI thread
     6. Changes of user interface must be performed on UI thread
 
-**
+** UI Responsiveness Requirements :
+
+   Android application should render 60 frames per seconds (FPS)
+                            ||
+                          \ || /
+                            \/
+   New frame each 16 milliseconds
+                            ||
+                          \ || /
+                            \/
+   Your code shouldn't execute on UI thread for longer than few milliseconds
+
+** UI Responsiveness Warning Signs :
+
+   1. Freezes of user interface, non-smooth animations, etc.
+   2. Notifications about skipped frames in logcat :
+        I/Choreographer : Skipped 611 frames! The application may be doing too much work on its main thread.
+        611 frames * 16 ms = 10 seconds (too much work on UI thread)
+   3. Crashes due to Application Not Responding (ANR) error
+
+** Zero skipped frames in one of the fundamental quality standards of Android applications (can be relaxed for lowest-end devices)
+** All time consuming operations should be offloaded to background threads
