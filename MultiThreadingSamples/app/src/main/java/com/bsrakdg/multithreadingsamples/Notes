@@ -202,3 +202,24 @@
 
 ** Zero skipped frames in one of the fundamental quality standards of Android applications (can be relaxed for lowest-end devices)
 ** All time consuming operations should be offloaded to background threads
+
+** If you want access views in main thread from background thread, you get CalledFromWrongThreadException :
+   You have to pass value in main thread and set it views
+
+     new Thread(() -> {
+            long startTimestamp = System.currentTimeMillis();
+            long endTimestamp = startTimestamp + ITERATIONS_COUNTER_DURATION_SEC * 1000;
+
+            int iterationsCount = 0;
+            while (System.currentTimeMillis() <= endTimestamp) {
+                iterationsCount++;
+            }
+
+            Log.d(
+                    "Exercise1",
+                    "iterations in " + ITERATIONS_COUNTER_DURATION_SEC + "seconds: "
+                            + iterationsCount
+            );
+
+            btn.setText("") // CalledFromWrongThreadException (You should use Handler : Look at UiHandlerDemonstrationFragment)
+     }).start();
