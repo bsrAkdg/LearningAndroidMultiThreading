@@ -223,3 +223,13 @@
 
             btn.setText("") // CalledFromWrongThreadException (You should use Handler : Look at UiHandlerDemonstrationFragment)
      }).start();
+
+** UI thread is a special "looper" thread that Android framework starts for each application
+
+** UI Thread Rules of Thumb
+    1. Don't perform any long-running tasks on UI thread (longer than few milliseconds)
+    2. Offload long-running tasks to background threads
+    3. Return execution from background to UI thread for user interface manipulations
+    4. Aim at zero skipped frames and watch for warning signs
+
+** Most of your application's code should execute on UI thread : lifecycle, UI Interactions, navigation, etc
