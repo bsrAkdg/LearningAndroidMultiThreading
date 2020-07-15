@@ -1,5 +1,6 @@
 package com.bsrakdg.multithreadingsamples.common;
 
+import com.bsrakdg.multithreadingsamples.demonstrations.customhandler.CustomHandlerDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.demonstrations.uihandler.UiHandlerDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.demonstrations.uithread.UiThreadDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.exercises.exercise1.Exercise1Fragment;
@@ -28,7 +29,7 @@ public class ScreensNavigator {
     }
 
     public void toCustomHandlerDemonstration() {
-        //mFragmentHelper.replaceFragment(CustomHandlerDemonstrationFragment.newInstance());
+        mFragmentHelper.replaceFragment(CustomHandlerDemonstrationFragment.newInstance());
     }
 
     public void toDesignWithAsyncTaskDemonstration() {

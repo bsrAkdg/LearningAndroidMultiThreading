@@ -28,8 +28,6 @@ public class CustomHandlerDemonstrationFragment extends BaseFragment {
         return new CustomHandlerDemonstrationFragment();
     }
 
-    private Button mBtnSendJob;
-
     private CustomHandler mCustomHandler;
 
     @Nullable
@@ -37,13 +35,8 @@ public class CustomHandlerDemonstrationFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_custom_looper_demonstration, container, false);
 
-        mBtnSendJob = view.findViewById(R.id.btn_send_job);
-        mBtnSendJob.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendJob();
-            }
-        });
+        Button mBtnSendJob = view.findViewById(R.id.btn_send_job);
+        mBtnSendJob.setOnClickListener(v -> sendJob());
 
         return view;
     }
@@ -65,18 +58,17 @@ public class CustomHandlerDemonstrationFragment extends BaseFragment {
         mCustomHandler.stop();
     }
 
+    // User clicks on send job button multiple times We want to send multiple jobs.
+    // Execute all of them one by one. Execute on same thread sequentially
     private void sendJob() {
-        mCustomHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                for (int i=0; i < SECONDS_TO_COUNT; i++) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        return;
-                    }
-                    Log.d("CustomHandler", "iteration: " + i);
+        mCustomHandler.post(() -> {
+            for (int i=0; i < SECONDS_TO_COUNT; i++) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    return;
                 }
+                Log.d("CustomHandler", "iteration: " + i);
             }
         });
     }
@@ -90,7 +82,7 @@ public class CustomHandlerDemonstrationFragment extends BaseFragment {
 
         private final BlockingQueue<Runnable> mQueue = new LinkedBlockingQueue<>();
 
-        public CustomHandler() {
+        CustomHandler() {
             initWorkerThread();
         }
 
@@ -116,13 +108,13 @@ public class CustomHandlerDemonstrationFragment extends BaseFragment {
             }).start();
         }
 
-        public void stop() {
+        void stop() {
             Log.d("CustomHandler", "injecting poison data into the queue");
-            mQueue.clear();
+            mQueue.clear(); //  threads that not worked yet
             mQueue.add(POISON);
         }
 
-        public void post(Runnable job) {
+        void post(Runnable job) {
             mQueue.add(job);
         }
     }
