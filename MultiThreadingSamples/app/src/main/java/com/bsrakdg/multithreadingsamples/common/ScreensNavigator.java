@@ -5,6 +5,7 @@ import com.bsrakdg.multithreadingsamples.demonstrations.uihandler.UiHandlerDemon
 import com.bsrakdg.multithreadingsamples.demonstrations.uithread.UiThreadDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.exercises.exercise1.Exercise1Fragment;
 import com.bsrakdg.multithreadingsamples.exercises.exercise2.Exercise2Fragment;
+import com.bsrakdg.multithreadingsamples.exercises.exercise3.Exercise3Fragment;
 import com.bsrakdg.multithreadingsamples.home.HomeFragment;
 import com.techyourchance.fragmenthelper.FragmentHelper;
 
@@ -66,7 +67,7 @@ public class ScreensNavigator {
     }
 
     public void toExercise3Screen() {
-        //mFragmentHelper.replaceFragment(Exercise3Fragment.newInstance());
+        mFragmentHelper.replaceFragment(Exercise3Fragment.newInstance());
     }
 
     public void toExercise4Screen() {
