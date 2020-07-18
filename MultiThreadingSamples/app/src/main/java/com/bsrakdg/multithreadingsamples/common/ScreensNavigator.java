@@ -1,5 +1,6 @@
 package com.bsrakdg.multithreadingsamples.common;
 
+import com.bsrakdg.multithreadingsamples.demonstrations.atomicity.AtomicityDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.demonstrations.customhandler.CustomHandlerDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.demonstrations.uihandler.UiHandlerDemonstrationFragment;
 import com.bsrakdg.multithreadingsamples.demonstrations.uithread.UiThreadDemonstrationFragment;
@@ -26,7 +27,7 @@ public class ScreensNavigator {
     }
 
     public void toAtomicityDemonstration() {
-        //mFragmentHelper.replaceFragment(AtomicityDemonstrationFragment.newInstance());
+        mFragmentHelper.replaceFragment(AtomicityDemonstrationFragment.newInstance());
     }
 
     public void toCustomHandlerDemonstration() {

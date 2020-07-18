@@ -19,6 +19,7 @@ public class VisibilityDemonstration {
         public void run() {
             int localValue = -1;
             while (true) {
+                // Consumer doesn't handle sCount changes on Producer, this is a problem
                 if (localValue != sCount) {
                     System.out.println("Consumer: detected count change " + sCount);
                     localValue = sCount;

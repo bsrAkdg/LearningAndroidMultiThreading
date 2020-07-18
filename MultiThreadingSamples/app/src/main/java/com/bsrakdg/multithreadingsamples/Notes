@@ -246,8 +246,9 @@
    If different threads don't access the same state, no special precautions are required.
    If more than one thread accesses the same part of program's tate (shared state), You need yo ensure "thread-safety".
 
-* Thread Safety Concerns : Very complicated topic.
+** Thread Safety Concerns : Very complicated topic.
     - Visibility
-    - Atomicity
+    - Atomicity (look at VisibilityDemonstration.class)
     - Happens Before
 
+**
