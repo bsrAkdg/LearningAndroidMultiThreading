@@ -247,8 +247,18 @@
    If more than one thread accesses the same part of program's tate (shared state), You need yo ensure "thread-safety".
 
 ** Thread Safety Concerns : Very complicated topic.
-    - Visibility
-    - Atomicity (look at VisibilityDemonstration.class)
+    - Visibility (for visibility problem look at VisibilityDemonstration.class STEP 1)
+    - Atomicity (look at AtomicityDemonstrationFragment.class)
     - Happens Before
 
-**
+** volatile keyword :
+
+ VisibilityDemonstration.class STEP 2
+ It's visible for all threads. And when I make a variable volatile what it basically says is that
+ all writes and all reads to this variable  or from this variable will go directly
+ into the main memory. The value of this variable will never be cached.
+
+ (AtomicityDemonstrationFragment)
+ When you make read, modify and write operation for a value in a thread,
+ you don't have to access this value from another thread. That is the key concept.
+ All of that of course is dependent on the scheduling of the threads by the operating system (Ray's condition)

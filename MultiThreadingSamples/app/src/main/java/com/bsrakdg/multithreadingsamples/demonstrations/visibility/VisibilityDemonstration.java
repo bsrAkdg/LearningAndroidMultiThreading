@@ -2,7 +2,8 @@ package com.bsrakdg.multithreadingsamples.demonstrations.visibility;
 
 public class VisibilityDemonstration {
 
-    private static int sCount = 0;
+    // private static int sCount = 0; STEP 1
+    private volatile static int sCount = 0; // STEP 2
 
     public static void main(String[] args) {
         new Consumer().start();
