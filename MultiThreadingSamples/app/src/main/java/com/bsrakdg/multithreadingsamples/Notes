@@ -275,3 +275,5 @@
                    mCount.incrementAndGet(); // thread safe and guarantees
                }
            }).start();
+
+** synchronized : guaranteed that it will hold the lock until this statement completes (VisibilityDemonstration - LOCK)
