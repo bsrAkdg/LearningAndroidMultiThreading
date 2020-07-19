@@ -262,3 +262,16 @@
  When you make read, modify and write operation for a value in a thread,
  you don't have to access this value from another thread. That is the key concept.
  All of that of course is dependent on the scheduling of the threads by the operating system (Ray's condition)
+
+** Atomic Classes
+
+   private volatile int mCount; not thread safe // STEP 1
+   private volatile AtomicInteger mCount = new AtomicInteger(0); // STEP 2
+
+     new Thread(() -> {
+               for (int i = 0; i < COUNT_UP_TO; i++) {
+
+                   mCount++; //  not thread safe and does not guarantee
+                   mCount.incrementAndGet(); // thread safe and guarantees
+               }
+           }).start();

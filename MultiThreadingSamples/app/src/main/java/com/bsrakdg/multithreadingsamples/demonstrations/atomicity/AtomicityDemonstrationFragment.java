@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 
 @SuppressLint("SetTextI18n")
 public class AtomicityDemonstrationFragment extends BaseFragment {
@@ -33,7 +35,8 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
 
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
 
-    private volatile int mCount;
+    // private volatile int mCount; not thread safe
+    private volatile AtomicInteger mCount = new AtomicInteger(0);
 
     @Nullable
     @Override
@@ -67,7 +70,7 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
     }
 
     private void startCount() {
-        mCount = 0;
+        // mCount = 0;
         mTxtFinalCount.setText("");
         mBtnStartCount.setEnabled(false);
 
@@ -84,12 +87,16 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
     private void startCountThread() {
         new Thread(() -> {
             for (int i = 0; i < COUNT_UP_TO; i++) {
-                // mCount++; non-atomic warning
+
                 // When you make read, modify and write operation for a value in a thread,
+                // mCount++; non-atomic warning, not thread safe and does not guarantee
+
                 // you don't have to access this value from another thread. That is the key concept.
                 // All of that of course is dependent on the scheduling of the threads by the operating system (Ray's condition)
-                int localCount = mCount;
-                mCount = localCount + 1;
+                // int localCount = mCount;
+                // mCount = localCount + 1;
+
+                mCount.incrementAndGet(); // thread safe and guarantees
             }
         }).start();
     }
