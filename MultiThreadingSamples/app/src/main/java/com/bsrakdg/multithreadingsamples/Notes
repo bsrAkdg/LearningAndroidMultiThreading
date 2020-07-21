@@ -277,3 +277,35 @@
            }).start();
 
 ** synchronized : guaranteed that it will hold the lock until this statement completes (VisibilityDemonstration - LOCK)
+
+**  private volatile AtomicInteger mCount = new AtomicInteger(0); // thread safe
+    private final AtomicInteger mCount = new AtomicInteger(0); // another thread safe way with using final (Immutability)
+
+    Immutability = finalization = thread safe way
+
+** Rule of thumb = Members initialized upon object construction should be finalized
+
+   Two way using final :
+
+    - Way One : When using multiple thread case
+        public class Trying {
+            public final AtomicInteger mCount = new AtomicInteger(0); // its created class initialization
+
+
+        }
+
+    - Way Two : When using single thread case
+
+        public class ScreensNavigator {
+
+            private final FragmentHelper mFragmentHelper;
+
+            public ScreensNavigator(FragmentHelper fragmentHelper) {
+                mFragmentHelper = fragmentHelper; // its created on constructor
+            }
+
+            public void navigateBack() {
+                mFragmentHelper.navigateBack();
+            }
+        }
+**

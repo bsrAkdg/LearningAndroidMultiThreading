@@ -35,8 +35,9 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
 
     private Handler mUiHandler = new Handler(Looper.getMainLooper());
 
-    // private volatile int mCount; not thread safe
-    private volatile AtomicInteger mCount = new AtomicInteger(0);
+    // private volatile int mCount; // not thread safe
+    // private volatile AtomicInteger mCount = new AtomicInteger(0); // thread safe
+    private final AtomicInteger mCount = new AtomicInteger(0); // another thread safe way with using final (Immutability)
 
     @Nullable
     @Override
@@ -71,6 +72,7 @@ public class AtomicityDemonstrationFragment extends BaseFragment {
 
     private void startCount() {
         // mCount = 0;
+        mCount.set(0);
         mTxtFinalCount.setText("");
         mBtnStartCount.setEnabled(false);
 
